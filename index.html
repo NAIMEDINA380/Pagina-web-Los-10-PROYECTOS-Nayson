@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 10 Proyectos JS</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>El Reto de los 10 Proyectos de JavaScript</h1>
+        <p>Desarrollado por: Nayson</p>
+    </header>
+
+    <nav id="main-nav">
+        <select id="project-selector" onchange="showProject(this.value)">
+            <option value="" disabled selected>Selecciona un Proyecto</option>
+            <option value="p1">1. Contador Inteligente</option>
+            <option value="p2">2. To-Do List</option>
+            <option value="p3">3. Adivina el Número</option>
+            <option value="p4">4. Calculadora</option>
+            <option value="p5">5. Cambiador de Color</option>
+            <option value="p6">6. Temporizador</option>
+            <option value="p7">7. Pass Generator</option>
+            <option value="p8">8. Dark Mode</option>
+            <option value="p9">9. Piedra, Papel o Tijera</option>
+            <option value="p10">10. Galería con Filtros</option>
+        </select>
+    </nav>
+
+    <main id="container">
+        <section id="p1" class="project-section">
+            <h2>Contador Inteligente</h2>
+            <div class="display" id="counter-val">0</div>
+            <button onclick="changeCounter(-1)">-1</button>
+            <button onclick="resetCounter()">Reiniciar</button>
+            <button onclick="changeCounter(1)">+1</button>
+        </section>
+
+        <section id="p2" class="project-section">
+            <h2>Lista de Tareas</h2>
+            <input type="text" id="todo-input" placeholder="Nueva tarea...">
+            <button onclick="addTodo()">Agregar</button>
+            <ul id="todo-list"></ul>
+        </section>
+
+        <section id="p3" class="project-section">
+            <h2>Adivina el Número (1-100)</h2>
+            <input type="number" id="guess-input">
+            <button onclick="checkGuess()">Adivinar</button>
+            <p id="guess-msg"></p>
+            <p>Intentos: <span id="attempts">0</span></p>
+            <button onclick="initGuessGame()">Nuevo Juego</button>
+        </section>
+
+        <section id="p4" class="project-section">
+            <h2>Calculadora</h2>
+            <input type="text" id="calc-display" disabled>
+            <div class="grid-calc">
+                <button onclick="calcPress('7')">7</button><button onclick="calcPress('8')">8</button><button onclick="calcPress('9')">9</button><button onclick="calcPress('/')">/</button>
+                <button onclick="calcPress('4')">4</button><button onclick="calcPress('5')">5</button><button onclick="calcPress('6')">6</button><button onclick="calcPress('*')">*</button>
+                <button onclick="calcPress('1')">1</button><button onclick="calcPress('2')">2</button><button onclick="calcPress('3')">3</button><button onclick="calcPress('-')">-</button>
+                <button onclick="calcClear()">C</button><button onclick="calcPress('0')">0</button><button onclick="calculate()">=</button><button onclick="calcPress('+')">+</button>
+            </div>
+        </section>
+
+        <section id="p5" class="project-section">
+            <h2>Cambiador de Colores</h2>
+            <button class="btn-lg" onclick="changeBgColor()">Cambiar Color</button>
+            <p id="hex-code">#FFFFFF</p>
+            <button onclick="copyToClipboard('hex-code')">Copiar Código</button>
+        </section>
+
+        <section id="p6" class="project-section">
+            <h2>Temporizador</h2>
+            <input type="number" id="t-min" placeholder="Min" min="0">
+            <input type="number" id="t-sec" placeholder="Seg" min="0" max="59">
+            <div id="timer-display">00:00</div>
+            <button onclick="startTimer()">Iniciar</button>
+            <button onclick="pauseTimer()">Pausar</button>
+            <button onclick="resetTimer()">Reiniciar</button>
+        </section>
+
+        <section id="p7" class="project-section">
+            <h2>Generador de Contraseñas</h2>
+            <input type="number" id="pass-len" value="12" min="6" max="20">
+            <div>
+                <label><input type="checkbox" id="c-upper" checked> ABC</label>
+                <label><input type="checkbox" id="c-num" checked> 123</label>
+                <label><input type="checkbox" id="c-sym"> !@#</label>
+            </div>
+            <button onclick="generatePass()">Generar</button>
+            <p id="pass-result" style="font-weight:bold;"></p>
+            <button onclick="copyToClipboard('pass-result')">Copiar</button>
+        </section>
+
+        <section id="p8" class="project-section">
+            <div id="theme-card" class="card">
+                <h2>Modo Oscuro / Claro</h2>
+                <p>Haz clic en el interruptor para cambiar el tema.</p>
+                <button onclick="toggleTheme()">Cambiar Tema</button>
+            </div>
+        </section>
+
+        <section id="p9" class="project-section">
+            <h2>Piedra, Papel o Tijera</h2>
+            <button onclick="playRPS('Piedra')">🪨</button>
+            <button onclick="playRPS('Papel')">📄</button>
+            <button onclick="playRPS('Tijera')">✂️</button>
+            <div id="rps-result"></div>
+            <p>Tú: <span id="s-user">0</span> | PC: <span id="s-pc">0</span></p>
+            <button onclick="resetRPS()">Reiniciar Marcador</button>
+        </section>
+
+        <section id="p10" class="project-section">
+            <h2>Galería con Filtros</h2>
+            <input type="text" id="gallery-search" placeholder="Buscar..." onkeyup="filterGallery()">
+            <div class="filters">
+                <button onclick="filterCat('all')">Todas</button>
+                <button onclick="filterCat('animal')">Animales</button>
+                <button onclick="filterCat('tech')">Tecnología</button>
+            </div>
+            <div id="gallery-grid" class="gallery-grid"></div>
+        </section>
+    </main>
+
+    <div id="modal" class="modal" onclick="this.style.display='none'">
+        <img id="modal-img">
+    </div>
+
+    <footer>
+        <p>Nayson Medina | Año 2026 | <a href="#">GitHub</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>i
